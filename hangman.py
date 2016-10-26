@@ -149,20 +149,6 @@ def hangman(secretWord = ''):
             print 'Sorry, you ran out of guesses. The word was',secretWord 
             break 
     
-        
-
-    
-        
-            
-            
-    
-
-        
-    
-
-# When you've completed your hangman function, uncomment these two lines
-# and run this file to test! (hint: you might want to pick your own
-# secretWord while you're testing)
 
 secretWord = chooseWord(wordlist).lower()
 hangman(secretWord)
