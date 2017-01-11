@@ -220,18 +220,19 @@ def runSimulation(num_robots, speed, width, height, min_coverage, num_trials,
     robot_type: class of robot to be instantiated (e.g. StandardRobot or
                 RandomWalkRobot)
     """
-    room = RectangularRoom(width, height)
-    robots = [robot_type(room, speed) for i in range(num_robots)]
-    time_steps = 0
-    min_tiles = min_coverage * room.getNumTiles()
+    mean = 0
     for i in range(num_trials):
+        room = RectangularRoom(width, height)
+        robots = [robot_type(room, speed) for i in range(num_robots)]
+        min_tiles = min_coverage * room.getNumTiles()
+        time_steps = 0
         while min_tiles != room.getNumCleanedTiles():
             anim.update(room, robots)
             map(lambda x: x.updatePositionAndClean(),robots)
             time_steps += 1
+        mean += time_steps
         anim.done()
-    time_steps = time_steps/num_trials
-    return time_steps
+    return mean/num_trials
 
 
 class RandomWalkRobot(Robot):
