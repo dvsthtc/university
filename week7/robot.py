@@ -1,11 +1,8 @@
 import math
 import random
-
 import robot_visualize
 import pylab
-
 import numpy as np
-
 from robot_verify_movement27 import testRobotMovement
 
 class Position(object):
@@ -105,7 +102,6 @@ class RectangularRoom(object):
         Return the total number of clean tiles in the room.
         returns: an integer
         """
-
         return len([value for value in self.tilesList.values() if value =='clean'])
 
     def getRandomPosition(self):
@@ -122,7 +118,6 @@ class RectangularRoom(object):
         returns: True if pos is in the room, False otherwise.
         """
         return (int(math.floor(pos.x)), int(math.floor(pos.y))) in self.tilesList.keys()
-
 
 
 class Robot(object):
@@ -183,10 +178,9 @@ class Robot(object):
         Move the robot to a new position and mark the tile it is on as having
         been cleaned.
         """
-        raise NotImplementedError # don't change this!
+        raise NotImplementedError
 
 
-# === Problem 2
 class StandardRobot(Robot):
     """
     A StandardRobot is a Robot with the standard movement strategy.
@@ -208,12 +202,8 @@ class StandardRobot(Robot):
             self.room.cleanTileAtPosition(self.position)
         else:
             self.setRobotDirection(random.randrange(1, 360, 1))
-# Uncomment this line to see your implementation of StandardRobot in action!
 
-#testRobotMovement(StandardRobot, RectangularRoom)
 
-#anim = robot_visualize.RobotVisualization(num_robots, width, height)
-# === Problem 3
 def runSimulation(num_robots, speed, width, height, min_coverage, num_trials,
                   robot_type):
     """
@@ -234,17 +224,16 @@ def runSimulation(num_robots, speed, width, height, min_coverage, num_trials,
     robots = [robot_type(room, speed) for i in range(num_robots)]
     time_steps = 0
     min_tiles = min_coverage * room.getNumTiles()
-    while min_tiles != room.getNumCleanedTiles():
-        #anim.update(room, robots)
-        map(lambda x: x.updatePositionAndClean(),robots)
-        time_steps += 1
-    #anim.done()
+    for i in range(num_trials):
+        while min_tiles != room.getNumCleanedTiles():
+            anim.update(room, robots)
+            map(lambda x: x.updatePositionAndClean(),robots)
+            time_steps += 1
+        anim.done()
+    time_steps = time_steps/num_trials
     return time_steps
 
 
-
-
-# === Problem 4
 class RandomWalkRobot(Robot):
     """
     A RandomWalkRobot is a robot with the "random walk" movement strategy: it
@@ -265,10 +254,8 @@ class RandomWalkRobot(Robot):
             self.setRobotPosition(self.position.getNewPosition(self.getRobotDirection(), self.speed))
 
 
-
-
-#runSimulation(10, 1.0, 10, 15, 0.75, 30, StandardRobot)
-
+anim = robot_visualize.RobotVisualization(10, 10, 15)
+runSimulation(10, 1.0, 10, 15, 0.8, 30, StandardRobot)
 
 def showPlot1(title, x_label, y_label):
     """
@@ -288,6 +275,7 @@ def showPlot1(title, x_label, y_label):
     pylab.xlabel(x_label)
     pylab.ylabel(y_label)
     pylab.show()
+
 def showPlot2(title, x_label, y_label):
     """
     What information does the plot produced by this function tell you?
@@ -308,12 +296,7 @@ def showPlot2(title, x_label, y_label):
     pylab.xlabel(x_label)
     pylab.ylabel(y_label)
     pylab.show()
-# === Problem 5
-#
-# 1) Write a function call to showPlot1 that generates an appropriately-labeled
-#     plot.
-#
+
 #showPlot1('Time It Takes 1 - 10 Robots To Clean 80% Of A Room ', 'Number of Robots', 'Time-steps')
-# 2) Write a function call to showPlot2 that generates an appropriately-labeled
-#     plot.
+
 #showPlot2('Time It Takes Two Robots To Clean 80% Of Variously Shaped Rooms ','Aspect Ratio','Time-steps')
