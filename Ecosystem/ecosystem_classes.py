@@ -1,4 +1,4 @@
-mport random
+import random
 import pylab
 import numpy
 
@@ -54,9 +54,10 @@ class Run(object):
         pylab.plot(numpy.polyval(coeff,range(len(list_of_populations))),line_atribute)
 
 
-fox = Foxes(500, 300, 10000)
+'''fox = Foxes(500, 300, 10000)
 run = Run()
 run.run_simulation(500, fox)
 run.visualisation(fox.rabbits_list, 'go', 'g')
 run.visualisation(fox.foxes_list, 'ro', 'r')
 pylab.show()
+'''
