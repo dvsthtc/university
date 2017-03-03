@@ -52,12 +52,3 @@ class Run(object):
         coeff = numpy.polyfit(range(len(list_of_populations)),list_of_populations,2)
         pylab.plot(range(len(list_of_populations)),list_of_populations,dotes_atribute)
         pylab.plot(numpy.polyval(coeff,range(len(list_of_populations))),line_atribute)
-
-
-'''fox = Foxes(500, 300, 10000)
-run = Run()
-run.run_simulation(500, fox)
-run.visualisation(fox.rabbits_list, 'go', 'g')
-run.visualisation(fox.foxes_list, 'ro', 'r')
-pylab.show()
-'''
